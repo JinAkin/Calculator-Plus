@@ -10,7 +10,6 @@
         android:icon="@drawable/ic_history_black_24dp"/>
     <item
         android:id="@+id/deg"
-        android:onClick="clickDeg"
         android:title="DEG"
         app:showAsAction="always" />
     <item

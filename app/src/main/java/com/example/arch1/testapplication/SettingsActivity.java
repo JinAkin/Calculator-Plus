@@ -98,8 +98,7 @@ public class SettingsActivity extends AppCompatActivity {
                 }
                 if (position == 5) {
                     intent = new Intent(Intent.ACTION_SENDTO);
-                    intent.setType("text/email");
-                    intent.setData(Uri.parse("mailto:"));
+                    intent.setDataAndType(Uri.parse("mailto:"),"text/email");
                     intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"arch1824@gmail.com"});
                     intent.putExtra(Intent.EXTRA_SUBJECT, "Calculator Plus "+BuildConfig.VERSION_NAME
                     +" // "+Build.MANUFACTURER+" "+Build.MODEL +"("+Build.DEVICE+")"+
