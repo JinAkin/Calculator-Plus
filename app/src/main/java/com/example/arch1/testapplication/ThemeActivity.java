@@ -1,6 +1,7 @@
 package com.example.arch1.testapplication;
 
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.View;
 import android.widget.RadioGroup;
 
@@ -25,11 +27,22 @@ public class ThemeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme);
 
+        String themeName = preferences.getStringPreference(AppPreferences.APP_THEME);
+
         toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        TypedValue typedValue = new TypedValue();
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+        if(themeName.equals("default") || themeName.equals(""))
+            color = getResources().getColor(R.color.colorMaterialSteelGrey);
+
         //setting toolbar style manually
-        setToolBarStyle(preferences.getStringPreference(AppPreferences.APP_THEME));
+        //setToolBarStyle(preferences.getStringPreference(AppPreferences.APP_THEME));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
+        toolbar.setBackgroundColor(color);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,70 +83,38 @@ public class ThemeActivity extends AppCompatActivity {
 
     private void changeTheme(String themeName) {
 
-        if (themeName.equals("green")) {
-
-            preferences.setStringPreference(AppPreferences.APP_THEME, "green");
-            Intent intent[] = new Intent[3];
-            intent[2] = new Intent(this, ThemeActivity.class);
-            intent[1] = new Intent(this, SettingsActivity.class);
-            intent[0] = new Intent(this, MainActivity.class);
-
-            startActivities(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            finish();
-
-        } else if (themeName.equals("orange")) {
-
-            preferences.setStringPreference(AppPreferences.APP_THEME, "orange");
-            Intent intent[] = new Intent[3];
-            intent[2] = new Intent(this, ThemeActivity.class);
-            intent[1] = new Intent(this, SettingsActivity.class);
-            intent[0] = new Intent(this, MainActivity.class);
-            startActivities(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            finish();
-        } else if (themeName.equals("blue")) {
-
-            preferences.setStringPreference(AppPreferences.APP_THEME, "blue");
-            Intent intent[] = new Intent[3];
-            intent[2] = new Intent(this, ThemeActivity.class);
-            intent[1] = new Intent(this, SettingsActivity.class);
-            intent[0] = new Intent(this, MainActivity.class);
-            startActivities(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            finish();
-        }else if (themeName.equals("lgreen")) {
-
-            preferences.setStringPreference(AppPreferences.APP_THEME, "lgreen");
-            Intent intent[] = new Intent[3];
-            intent[2] = new Intent(this, ThemeActivity.class);
-            intent[1] = new Intent(this, SettingsActivity.class);
-            intent[0] = new Intent(this, MainActivity.class);
-            startActivities(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            finish();
-        }else if (themeName.equals("pink")) {
-
-            preferences.setStringPreference(AppPreferences.APP_THEME, "pink");
-            Intent intent[] = new Intent[3];
-            intent[2] = new Intent(this, ThemeActivity.class);
-            intent[1] = new Intent(this, SettingsActivity.class);
-            intent[0] = new Intent(this, MainActivity.class);
-            startActivities(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            finish();
-        } else if (themeName.equals("default")) {
-
-            preferences.setStringPreference(AppPreferences.APP_THEME, "default");
-            Intent intent[] = new Intent[3];
-            intent[2] = new Intent(this, ThemeActivity.class);
-            intent[1] = new Intent(this, SettingsActivity.class);
-            intent[0] = new Intent(this, MainActivity.class);
-            startActivities(intent);
-            overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
-            finish();
+        switch (themeName) {
+            case "green":
+                preferences.setStringPreference(AppPreferences.APP_THEME, "green");
+                break;
+            case "orange":
+                preferences.setStringPreference(AppPreferences.APP_THEME, "orange");
+                break;
+            case "blue":
+                preferences.setStringPreference(AppPreferences.APP_THEME, "blue");
+                break;
+            case "lgreen":
+                preferences.setStringPreference(AppPreferences.APP_THEME, "lgreen");
+                break;
+            case "pink":
+                preferences.setStringPreference(AppPreferences.APP_THEME, "pink");
+                break;
+            case "default":
+                preferences.setStringPreference(AppPreferences.APP_THEME, "default");
+                break;
+            default:
+                preferences.setStringPreference(AppPreferences.APP_THEME, "default");
+                break;
         }
 
+        Intent intent[] = new Intent[3];
+        intent[2] = new Intent(this, ThemeActivity.class);
+        intent[1] = new Intent(this, SettingsActivity.class);
+        intent[0] = new Intent(this, MainActivity.class);
+
+        startActivities(intent);
+        overridePendingTransition(android.R.anim.fade_in,android.R.anim.fade_out);
+        finish();
     }
 
     private void setTheme(String themeName) {
@@ -204,35 +185,4 @@ public class ThemeActivity extends AppCompatActivity {
         }
     }
 
-    private void setToolBarStyle(String themeName) {
-        if (themeName.equals("green")) {
-            toolbar.setBackground(getDrawable(R.drawable.green_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        } else if (themeName.equals("orange")) {
-            toolbar.setBackground(getDrawable(R.drawable.orange_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        } else if (themeName.equals("blue")) {
-            toolbar.setBackground(getDrawable(R.drawable.blue_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        } else if (themeName.equals("lgreen")) {
-            toolbar.setBackground(getDrawable(R.drawable.lightgreen_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        } else if (themeName.equals("pink")) {
-            toolbar.setBackground(getDrawable(R.drawable.pink_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        } else if (themeName.equals("default")) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.colorMaterialSteelGrey));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        } else if (themeName.equals("")) {
-            toolbar.setBackgroundColor(getResources().getColor(R.color.colorMaterialSteelGrey));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-            toolbar.setNavigationIcon(R.drawable.ic_arrow_back_white_24dp);
-        }
-    }
 }

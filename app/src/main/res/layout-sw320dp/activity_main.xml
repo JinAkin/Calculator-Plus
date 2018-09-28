@@ -18,28 +18,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.6" />
+        app:layout_constraintGuide_percent="0.75" />
 
-
-    <include
-        android:id="@+id/mainLayout"
-        layout="@layout/one"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        android:gravity="bottom"
+        sothree:layout_constraintBottom_toBottomOf="parent"
+        sothree:layout_constraintEnd_toEndOf="parent"
+        sothree:layout_constraintStart_toStartOf="parent"
+        sothree:layout_constraintTop_toTopOf="@+id/guideline"
+        sothree:umanoPanelHeight="40dp"
+        sothree:umanoShadowHeight="4dp">
 
-    <include
-        android:id="@+id/slidingLayout"
-        layout="@layout/two"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="@+id/guideline" />
+        <include layout="@layout/one"
+            android:id="@+id/mainLayout"/>
+
+        <include layout="@layout/two"
+            android:id="@+id/slidingLayout"/>
+
+    </com.sothree.slidinguppanel.SlidingUpPanelLayout>
 
     <LinearLayout
         style="?displayStyle"
@@ -73,13 +71,13 @@
 
         <me.grantland.widget.AutofitTextView
             android:id="@+id/tv_display"
-            style="?displayTextStyle"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.75"
             android:gravity="end|center_vertical"
             android:maxLines="1"
-            android:textSize="50sp"
+            android:textSize="45sp"
+            android:textColor="@color/offGray"
             tools:text="0" />
     </LinearLayout>
 
@@ -87,9 +85,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:elevation="4dp"
         android:theme="?actionBarStyle"
         android:background="?colorPrimary"
+        android:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -99,8 +97,8 @@
         style="?clearStyle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
         android:elevation="4dp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

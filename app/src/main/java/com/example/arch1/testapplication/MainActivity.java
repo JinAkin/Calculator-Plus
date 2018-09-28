@@ -2,11 +2,13 @@ package com.example.arch1.testapplication;
 
 import android.animation.Animator;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.getkeepsafe.taptargetview.TapTarget;
@@ -26,10 +29,11 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, TextWatcher {
 
     private TextView result;
-    private Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, badd, bsub, bmul, bdiv, bequal, bdel, bdecimal;
+    private Button b1, b2, b3, b4, b5, b6, b7, b8, b9, b0, badd, bsub, bmul, bdiv, bequal, bdecimal;
     private Button sin, cos, tan, asin, acos, atan, exp, log, ln, pow, factorial, sqrt, cbrt, pi;
     private Button open, close, percent;
     private EditText equation;
+    private ImageButton bdel;
     private String equ = "", tempEqu, tempResult="";
     private View view;
     private Animator anim;
@@ -50,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        String themeName = preferences.getStringPreference(AppPreferences.APP_THEME);
 
         //getting values from saved Instance, if any
         if (savedInstanceState != null) {
@@ -78,8 +84,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
 
+        TypedValue typedValue = new TypedValue();
+        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
+        int color = a.getColor(0, 0);
+
         //setting toolbar style manually
-        setToolBarStyle(preferences.getStringPreference(AppPreferences.APP_THEME));
+        //setToolBarStyle(preferences.getStringPreference(AppPreferences.APP_THEME));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+        toolbar.setBackgroundColor(color);
+        bdel.setColorFilter(color);
 
         //avoiding keyboard input
         equation.setShowSoftInputOnFocus(false);
@@ -1175,25 +1188,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             return getResources().getColor(R.color.colorBlack);
         }
         return getResources().getColor(R.color.colorWhite);
-    }
-
-    private void setToolBarStyle(String themeName) {
-        if (themeName.equals("green")) {
-            toolbar.setBackground(getDrawable(R.drawable.green_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        } else if (themeName.equals("orange")) {
-            toolbar.setBackground(getDrawable(R.drawable.orange_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        } else if (themeName.equals("blue")) {
-            toolbar.setBackground(getDrawable(R.drawable.blue_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        } else if (themeName.equals("lgreen")) {
-            toolbar.setBackground(getDrawable(R.drawable.lightgreen_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        } else if (themeName.equals("pink")) {
-            toolbar.setBackground(getDrawable(R.drawable.pink_title));
-            toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        }
     }
 
     private void initialiseVariables() {

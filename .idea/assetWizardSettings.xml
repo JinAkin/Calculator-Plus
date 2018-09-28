@@ -33,8 +33,9 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="outputName" value="ic_build_black_24dp" />
-                            <entry key="sourceFile" value="C:\Users\Archit" />
+                            <entry key="assetSourceType" value="FILE" />
+                            <entry key="outputName" value="ic_delete" />
+                            <entry key="sourceFile" value="C:\Users\rajarchi\Desktop\delete.svg" />
                           </map>
                         </option>
                       </PersistentState>
