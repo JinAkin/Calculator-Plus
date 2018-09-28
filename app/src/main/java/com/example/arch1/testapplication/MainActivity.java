@@ -172,8 +172,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                     if (!res.equals("")) {
                         String historyEqu = equ;
-                        String historyVal = res;
-                        history.addToHistory(historyEqu, historyVal, System.currentTimeMillis());
+                        history.addToHistory(historyEqu, res, System.currentTimeMillis());
                         tempResult = res;
                         equ = "";
                         equation.setText(res);
@@ -849,12 +848,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean isAnError(String string) {
-        if (string.equals("Invalid Expression") ||
+        return (string.equals("Invalid Expression") ||
                 string.equals("Domain error") ||
                 string.equals("Cannot divide by 0") ||
-                string.equals("Number too large"))
-            return true;
-        return false;
+                string.equals("Number too large"));
     }
 
     private void removeBackOperators() {
@@ -920,9 +917,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private boolean isEquationEmpty() {
         String eq = equ;
-        if (eq.equals(""))
-            return true;
-        return false;
+        return eq.equals("");
     }
 
     private boolean ifPrevOperator() {
@@ -958,10 +953,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 count++;
             j--;
         }
-        if (count == 0)
-            return true;
-        else
-            return false;
+        return (count == 0);
     }
 
     private void animateClear(View viewRoot) {
@@ -1086,8 +1078,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     item.setTitle("DEG");
                     ifDegree = true;
                 }
-                afterTextChanged(equation.getText());
                 preferences.setBooleanPreference(AppPreferences.APP_ANGLE, ifDegree);
+                afterTextChanged(equation.getText());
                 break;
         }
 
@@ -1290,7 +1282,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private boolean isOperator(char c) {
-        if (c == '+' ||
+        return (c == '+' ||
                 c == '/' ||
                 c == '*' ||
                 c == '%' ||
@@ -1300,9 +1292,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 c == '\u221b' ||
                 c == '÷' ||
                 c == '\u00d7' ||
-                c == '-')
-            return true;
-        return false;
+                c == '-');
     }
 
     private static boolean isNumber(String string) {
@@ -1349,27 +1339,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String formatEquation(String equation) {
         Stack<String> stack = new Stack<>();
         char c;
-        String temp = "";
+        StringBuilder temp = new StringBuilder();
         for (int i = 0; i < equation.length(); i++) {
             c = equation.charAt(i);
             if (isOperator(c)) {
-                if (!temp.equals(""))
-                    stack.push(temp);
+                if (!temp.toString().equals(""))
+                    stack.push(temp.toString());
                 stack.push(c + "");
-                temp = "";
+                temp = new StringBuilder();
             } else if (c == '(' || c == ')') {
-                if (!temp.equals("")) {
-                    stack.push(temp);
-                    temp = "";
+                if (!temp.toString().equals("")) {
+                    stack.push(temp.toString());
+                    temp = new StringBuilder();
                 }
                 stack.push(c + "");
             } else {
-                temp = temp + c;
+                temp.append(c);
             }
         }
 
-        if (!temp.equals(""))
-            stack.push(temp);
+        if (!temp.toString().equals(""))
+            stack.push(temp.toString());
 
         Stack<String> abc = new Stack<>();
         while (!stack.empty()){
