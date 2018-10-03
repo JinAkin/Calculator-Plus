@@ -31,7 +31,7 @@
         sothree:umanoPanelHeight="40dp"
         sothree:umanoShadowHeight="4dp">
 
-        <include layout="@layout/one"
+        <include layout="@layout/portrait_one"
             android:id="@+id/mainLayout"/>
 
         <include layout="@layout/two"

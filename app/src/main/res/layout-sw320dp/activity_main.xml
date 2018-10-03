@@ -20,7 +20,8 @@
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.75" />
 
-    <com.sothree.slidinguppanel.SlidingUpPanelLayout xmlns:sothree="http://schemas.android.com/apk/res-auto"
+    <com.sothree.slidinguppanel.SlidingUpPanelLayout
+        xmlns:sothree="http://schemas.android.com/apk/res-auto"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:gravity="bottom"
@@ -31,7 +32,7 @@
         sothree:umanoPanelHeight="40dp"
         sothree:umanoShadowHeight="4dp">
 
-        <include layout="@layout/one"
+        <include layout="@layout/portrait_one"
             android:id="@+id/mainLayout"/>
 
         <include layout="@layout/two"
@@ -77,7 +78,8 @@
             android:gravity="end|center_vertical"
             android:maxLines="1"
             android:textSize="45sp"
-            android:textColor="@color/offGray"
+            android:background="@null"
+            style="?displayTextStyle"
             tools:text="0" />
     </LinearLayout>
 

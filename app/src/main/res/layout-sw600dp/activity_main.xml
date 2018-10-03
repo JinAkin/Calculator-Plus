@@ -23,7 +23,7 @@
 
     <include
         android:id="@+id/mainLayout"
-        layout="@layout/one"
+        layout="@layout/portrait_one"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

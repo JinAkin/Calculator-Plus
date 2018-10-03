@@ -49,71 +49,70 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
 
         //set Activity Theme
-        preferences = AppPreferences.getInstance(this);
-        setTheme(preferences.getStringPreference(AppPreferences.APP_THEME));
+//        preferences = AppPreferences.getInstance(this);
+//        setTheme(preferences.getStringPreference(AppPreferences.APP_THEME));
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_about);
 
-        String themeName = preferences.getStringPreference(AppPreferences.APP_THEME);
-
-        //getting values from saved Instance, if any
-        if (savedInstanceState != null) {
-            equ = savedInstanceState.getString("equ");
-            ifDegree = savedInstanceState.getBoolean("ifDeg");
-        }
-
-        //initialising variables
-        initialiseVariables();
-
-        //checking if first Launch
-        firstLaunch = preferences.getBooleanPreference(AppPreferences.APP_FIRST_LAUNCH);
-        if (firstLaunch) {
-            //set app default preferences
-            preferences.setBooleanPreference(AppPreferences.APP_FIRST_LAUNCH, false);
-            preferences.setStringPreference(AppPreferences.APP_ANSWER_PRECISION, "six");
-            preferences.setStringPreference(AppPreferences.APP_THEME,"default");
-            preferences.setBooleanPreference(AppPreferences.APP_ANGLE, true);
-            preferences.setBooleanPreference(AppPreferences.APP_NUMBER_FORMATTER,true);
-            preferences.setBooleanPreference(AppPreferences.APP_SMART_CALCULATIONS,true);
-            preferences.setStringPreference(AppPreferences.APP_HISTORY,"");
-            preferences.setStringPreference(AppPreferences.APP_EQUATION_STRING,"");
-        }
-
-        //set ToolBar
-        toolbar.setTitle("");
-        setSupportActionBar(toolbar);
-
-        TypedValue typedValue = new TypedValue();
-        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
-        int color = a.getColor(0, 0);
-
-        //setting toolbar style manually
-        //setToolBarStyle(preferences.getStringPreference(AppPreferences.APP_THEME));
-        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
-        toolbar.setBackgroundColor(color);
-        bdel.setColorFilter(color);
-
-        //avoiding keyboard input
-        equation.setShowSoftInputOnFocus(false);
-        equation.setTextIsSelectable(false);
-        equation.setLongClickable(false);
-
-        //adding button long press listener
-        bdel.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                if (!equation.getText().toString().equals(""))
-                    animateClear(view);
-                equ = "";
-                equation.setText(equ);
-                result.setText("");
-                return true;
-            }
-        });
-
-        //adding text change listener
-        equation.addTextChangedListener(this);
+//        //getting values from saved Instance, if any
+//        if (savedInstanceState != null) {
+//            equ = savedInstanceState.getString("equ");
+//            ifDegree = savedInstanceState.getBoolean("ifDeg");
+//        }
+//
+//        //initialising variables
+//        initialiseVariables();
+//
+//        //checking if first Launch
+//        firstLaunch = preferences.getBooleanPreference(AppPreferences.APP_FIRST_LAUNCH);
+//        if (firstLaunch) {
+//            //set app default preferences
+//            preferences.setBooleanPreference(AppPreferences.APP_FIRST_LAUNCH, false);
+//            preferences.setStringPreference(AppPreferences.APP_ANSWER_PRECISION, "six");
+//            preferences.setStringPreference(AppPreferences.APP_THEME,"default");
+//            preferences.setBooleanPreference(AppPreferences.APP_ANGLE, true);
+//            preferences.setBooleanPreference(AppPreferences.APP_NUMBER_FORMATTER,true);
+//            preferences.setBooleanPreference(AppPreferences.APP_SMART_CALCULATIONS,true);
+//            preferences.setStringPreference(AppPreferences.APP_HISTORY,"");
+//            preferences.setStringPreference(AppPreferences.APP_EQUATION_STRING,"");
+//        }
+//
+//        //set ToolBar
+//        toolbar.setTitle("");
+//        setSupportActionBar(toolbar);
+//
+//        TypedValue typedValue = new TypedValue();
+//        TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
+//        int color = a.getColor(0, 0);
+//        a.recycle();
+//
+//        //setting toolbar style manually
+//        //setToolBarStyle(preferences.getStringPreference(AppPreferences.APP_THEME));
+//        toolbar.setTitleTextColor(getResources().getColor(R.color.colorWhite));
+//        toolbar.setBackgroundColor(color);
+//        bdel.setColorFilter(color);
+//
+//        //avoiding keyboard input
+//        equation.setShowSoftInputOnFocus(false);
+//        equation.setTextIsSelectable(false);
+//        equation.setLongClickable(false);
+//
+//        //adding button long press listener
+//        bdel.setOnLongClickListener(new View.OnLongClickListener() {
+//            @Override
+//            public boolean onLongClick(View v) {
+//                if (!equation.getText().toString().equals(""))
+//                    animateClear(view);
+//                equ = "";
+//                equation.setText(equ);
+//                result.setText("");
+//                return true;
+//            }
+//        });
+//
+//        //adding text change listener
+//        equation.addTextChangedListener(this);
 
     }
 
@@ -1387,42 +1386,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStop() {
         super.onStop();
-        preferences.setBooleanPreference(AppPreferences.APP_ANGLE, ifDegree);
-        preferences.setStringPreference(AppPreferences.APP_EQUATION_STRING,equation.getText().toString().trim());
+//        preferences.setBooleanPreference(AppPreferences.APP_ANGLE, ifDegree);
+//        preferences.setStringPreference(AppPreferences.APP_EQUATION_STRING,equation.getText().toString().trim());
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        //setting menu for DEG or RAD
-        ifDegree = preferences.getBooleanPreference(AppPreferences.APP_ANGLE);
-        onPrepareOptionsMenu(menu);
-
-        //checking if called by history intent
-        Intent intent = getIntent();
-        if (intent != null) {
-            String historyEqu = intent.getStringExtra("equation");
-            if (historyEqu != null) {
-                equ = historyEqu;
-                equation.setText(equ);
-            } else {
-                equ = preferences.getStringPreference(AppPreferences.APP_EQUATION_STRING);
-                equation.setText(equ);
-            }
-            enableNumberFormatter = preferences.getBooleanPreference(AppPreferences.APP_NUMBER_FORMATTER);
-        }
+//        //setting menu for DEG or RAD
+//        ifDegree = preferences.getBooleanPreference(AppPreferences.APP_ANGLE);
+//        onPrepareOptionsMenu(menu);
+//
+//        //checking if called by history intent
+//        Intent intent = getIntent();
+//        if (intent != null) {
+//            String historyEqu = intent.getStringExtra("equation");
+//            if (historyEqu != null) {
+//                equ = historyEqu;
+//                equation.setText(equ);
+//            } else {
+//                equ = preferences.getStringPreference(AppPreferences.APP_EQUATION_STRING);
+//                equation.setText(equ);
+//            }
+//            enableNumberFormatter = preferences.getBooleanPreference(AppPreferences.APP_NUMBER_FORMATTER);
+//        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(enableNumberFormatter){
-            equ = equ.replaceAll(",","");
-            equ = formatEquation(equ);
-            equation.setText(equ);
-        } else {
-            equ = equ.replaceAll(",","");
-            equation.setText(equ);
-        }
+//        if(enableNumberFormatter){
+//            equ = equ.replaceAll(",","");
+//            equ = formatEquation(equ);
+//            equation.setText(equ);
+//        } else {
+//            equ = equ.replaceAll(",","");
+//            equation.setText(equ);
+//        }
     }
 }

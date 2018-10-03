@@ -60,6 +60,7 @@ public class SettingsActivity extends AppCompatActivity {
         TypedValue typedValue = new TypedValue();
         TypedArray a = this.obtainStyledAttributes(typedValue.data, new int[] { R.attr.colorPrimary });
         int color = a.getColor(0, 0);
+        a.recycle();
         if(themeName.equals("default") || themeName.equals(""))
             color = getResources().getColor(R.color.colorMaterialSteelGrey);
 
