@@ -4,27 +4,30 @@
 
     <item
         android:id="@+id/history_icon"
+        android:icon="@drawable/ic_history_black_24dp"
         android:title="History"
-        app:showAsAction="always"
         android:visible="false"
-        android:icon="@drawable/ic_history_black_24dp"/>
+        app:showAsAction="always" />
     <item
         android:id="@+id/deg"
-        android:onClick="clickDeg"
         android:title="DEG"
         app:showAsAction="always" />
     <item
         android:id="@+id/settings"
         android:title="Settings"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/dev"
+        android:title="Developer Calculator"
+        app:showAsAction="never" />
     <item
         android:id="@+id/history"
         android:title="History"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/tutorial"
         android:title="Show Tutorial"
-        app:showAsAction="never"/>
+        app:showAsAction="never" />
     <item
         android:id="@+id/about"
         android:title="About"

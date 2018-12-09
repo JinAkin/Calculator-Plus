@@ -103,7 +103,7 @@ public class Evaluate {
     }
 
     //adds thousand separator
-    private static String formatString(String str) {
+    public static String formatString(String str) {
         int index = str.indexOf('.');
         if(index == -1)
             index = str.length();

@@ -34,7 +34,9 @@
             android:label="History" />
         <activity
             android:name=".GeneralSettingsActivity"
-            android:label="General Settings"/>
+            android:label="General Settings" />
+        <activity android:name=".DevCalculator"
+            android:windowSoftInputMode="stateAlwaysHidden|adjustNothing"></activity>
     </application>
 
 </manifest>
