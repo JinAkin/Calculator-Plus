@@ -17,7 +17,7 @@
             style="?buttonPrimary"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:text="("
             android:textSize="36sp" />
 
@@ -26,13 +26,13 @@
             style="?buttonPrimary"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_weight="1.5"
             android:text=")"
             android:textSize="36sp" />
 
         <Button
             android:id="@+id/del"
-            style="?buttonPrimary"
+            style="?buttonSecondary"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -40,8 +40,18 @@
             android:textStyle="bold"
             android:textSize="24sp" />
 
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
         <Button
-            style="?buttonSecondary"
+            style="?buttonPrimary"
+            android:id="@+id/and"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -49,43 +59,10 @@
             android:textStyle="bold"
             android:textSize="24sp"
             android:enabled="false"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/D"
             style="?buttonPrimary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="D"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/E"
-            style="?buttonPrimary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="E"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/F"
-            style="?buttonPrimary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="F"
-            android:textSize="36sp" />
-
-        <Button
-            style="?buttonSecondary"
+            android:id="@+id/or"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -93,47 +70,25 @@
             android:textStyle="bold"
             android:textSize="24sp"
             android:enabled="false"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
 
         <Button
-            android:id="@+id/A"
             style="?buttonPrimary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="A"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/B"
-            style="?buttonPrimary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="B"
-            android:textSize="36sp" />
-
-        <Button
-            android:id="@+id/C"
-            style="?buttonPrimary"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="C"
-            android:textSize="36sp" />
-
-        <Button
-            style="?buttonSecondary"
+            android:id="@+id/not"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:text="NOT"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:enabled="false"/>
+
+        <Button
+            style="?buttonSecondary"
+            android:id="@+id/xor"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="XOR"
             android:textStyle="bold"
             android:textSize="24sp"
             android:enabled="false"/>

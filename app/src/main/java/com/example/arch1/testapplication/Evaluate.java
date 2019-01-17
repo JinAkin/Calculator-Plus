@@ -259,6 +259,13 @@ public class Evaluate {
         return false;
     }
 
+    //solve negation (not) operator
+    public static String solveNegation(String equation) {
+
+
+        return "";
+    }
+
     //you provide the equation, it will give the result
     private String getAnswer(String equation) {
 

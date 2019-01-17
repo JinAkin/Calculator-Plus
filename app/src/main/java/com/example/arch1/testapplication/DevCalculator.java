@@ -29,6 +29,7 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
     private String equ = "", tempResult = "";
 
     private Button b0, b1, badd, bsub, bdiv, bmul, open, close, bdel, bequal, bdev_switch;
+    private Button b2, b3, b4, b5, b6, b7, b8, b9, band, bor, bnot, bxor;
     private View mainLayout;
     private TextView result;
     private EditText equation;
@@ -87,6 +88,8 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
         //adding text change listener
         equation.addTextChangedListener(this);
 
+        setKeypadForBinary();
+
     }
 
     private void initialisation() {
@@ -98,12 +101,29 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
         view = findViewById(R.id.view2);
         toolbar = findViewById(R.id.toolbar);
 
-        b0 = mainLayout.findViewById(R.id.zero);
-        b1 = mainLayout.findViewById(R.id.one);
+        //operators
         badd = mainLayout.findViewById(R.id.add);
         bsub = mainLayout.findViewById(R.id.sub);
         bmul = mainLayout.findViewById(R.id.mul);
         bdiv = mainLayout.findViewById(R.id.div);
+        band = mainLayout.findViewById(R.id.and);
+        bor = mainLayout.findViewById(R.id.or);
+        bnot = mainLayout.findViewById(R.id.not);
+        bxor = mainLayout.findViewById(R.id.xor);
+
+        //numbers
+        b0 = mainLayout.findViewById(R.id.zero);
+        b1 = mainLayout.findViewById(R.id.one);
+        b2 = mainLayout.findViewById(R.id.two);
+        b3 = mainLayout.findViewById(R.id.three);
+        b4 = mainLayout.findViewById(R.id.four);
+        b5 = mainLayout.findViewById(R.id.five);
+        b6 = mainLayout.findViewById(R.id.six);
+        b7 = mainLayout.findViewById(R.id.seven);
+        b8 = mainLayout.findViewById(R.id.eight);
+        b9 = mainLayout.findViewById(R.id.nine);
+
+        //misc
         bequal = mainLayout.findViewById(R.id.equal);
         bdel = mainLayout.findViewById(R.id.del);
         open = mainLayout.findViewById(R.id.open);
@@ -112,10 +132,24 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
 
         b0.setOnClickListener(this);
         b1.setOnClickListener(this);
+        b2.setOnClickListener(this);
+        b3.setOnClickListener(this);
+        b4.setOnClickListener(this);
+        b5.setOnClickListener(this);
+        b6.setOnClickListener(this);
+        b7.setOnClickListener(this);
+        b8.setOnClickListener(this);
+        b9.setOnClickListener(this);
+
         badd.setOnClickListener(this);
         bsub.setOnClickListener(this);
         bmul.setOnClickListener(this);
         bdiv.setOnClickListener(this);
+        band.setOnClickListener(this);
+        bor.setOnClickListener(this);
+        bnot.setOnClickListener(this);
+        bxor.setOnClickListener(this);
+
         bequal.setOnClickListener(this);
         bdel.setOnClickListener(this);
         open.setOnClickListener(this);
@@ -289,6 +323,78 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
                 add("1");
                 break;
 
+            case R.id.two:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d72");
+                    break;
+                }
+                add("2");
+                break;
+
+            case R.id.three:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d73");
+                    break;
+                }
+                add("3");
+                break;
+
+            case R.id.four:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d74");
+                    break;
+                }
+                add("4");
+                break;
+
+            case R.id.five:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d75");
+                    break;
+                }
+                add("5");
+                break;
+
+            case R.id.six:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d76");
+                    break;
+                }
+                add("6");
+                break;
+
+            case R.id.seven:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d77");
+                    break;
+                }
+                add("7");
+                break;
+
+            case R.id.eight:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d78");
+                    break;
+                }
+                add("8");
+                break;
+
+            case R.id.nine:
+                tempResult = "";
+                if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
+                    add("\u00d79");
+                    break;
+                }
+                add("9");
+                break;
+
             case R.id.zero:
                 tempResult = "";
                 if (!isEquationEmpty() && equ.charAt(equ.length() - 1) == ')') {
@@ -346,11 +452,146 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
                 if (devState == 0) {
                     devState = 1;
                     bdev_switch.setText("DEC");
+                    setKeypadForDecimal();
                     equation.setText(getDecimalEquation(equ));
                 } else if (devState == 1) {
                     devState = 0;
                     bdev_switch.setText("BIN");
+                    setKeypadForBinary();
                     equation.setText(equ);
+                }
+                break;
+
+            case R.id.and:
+                if (!isEquationEmpty()) {
+                    c = equ.charAt(equ.length() - 1);
+                    if (c == ')' || isNumber(c)) {
+                        add("&");
+                        break;
+                    }
+                    if (isOperator(c)) {
+                        if (equ.length() == 1) {
+                            break;
+                        }
+                        removeBackOperators();
+                        add("&");
+                        break;
+                    }
+                } else {
+                    if (!tempResult.equals("")) {
+                        equ = tempResult;
+                        tempResult = "";
+                        add("&");
+                        break;
+                    }
+                }
+                break;
+
+            case R.id.or:
+                if (!isEquationEmpty()) {
+                    c = equ.charAt(equ.length() - 1);
+                    if (c == ')' || isNumber(c)) {
+                        add("|");
+                        break;
+                    }
+                    if (isOperator(c)) {
+                        if (equ.length() == 1) {
+                            break;
+                        }
+                        removeBackOperators();
+                        add("|");
+                        break;
+                    }
+                } else {
+                    if (!tempResult.equals("")) {
+                        equ = tempResult;
+                        tempResult = "";
+                        add("|");
+                        break;
+                    }
+                }
+                break;
+
+            case R.id.not:
+                if(!isEquationEmpty()) {
+                    c = equ.charAt(equ.length() - 1);
+                    if (c == '(') {
+                        add("!");
+                        break;
+                    }
+                    if (c == ')') {
+                        for(int i=equ.length()-1; i>=0; i--) {
+                            if(equ.charAt(i) == '(') {
+                                equ = equ.substring(0, i) + "!" + equ.substring(i, equ.length());
+                                equation.setText(equ);
+                                break;
+                            }
+                        }
+                    }
+                    if (isOperator(c)) {
+                        if(c == '!') {
+                            equ = equ.substring(0, equ.length()-1);
+                            equation.setText(equ);
+                            break;
+                        }
+                        if(equ.length() == 1){
+                            equ = "";
+                            add("!");
+                            break;
+                        }
+                        add("!");
+                        break;
+                    }
+                    if( isNumber(c)) {
+                        for(int i= equ.length()-1; i>=0; i--) {
+                            if(equ.charAt(i) == '('){
+                                equ = equ.substring(0, i) + "!" + equ.substring(i, equ.length()) + ")";
+                                equation.setText(equ);
+                                break;
+                            }
+
+                            if(isOperator(equ.charAt(i))){
+                                equ = equ.substring(0, i+1) + "!(" + equ.substring(i+1, equ.length()) + ")";
+                                equation.setText(equ);
+                                break;
+                            }
+                        }
+                        equ = "!" + equ;
+                        equation.setText(equ);
+                        break;
+                    }
+                } else {
+                    if (!tempResult.equals("")) {
+                        equ = "!" +tempResult;
+                        tempResult = "";
+                        equation.setText(equ);
+                        break;
+                    }
+                    add("!");
+                }
+
+            case R.id.xor:
+                if (!isEquationEmpty()) {
+                    c = equ.charAt(equ.length() - 1);
+                    if (c == ')' || isNumber(c)) {
+                        add("\u2295");
+                        break;
+                    }
+                    if (isOperator(c)) {
+                        if (equ.length() == 1) {
+                            break;
+                        }
+                        removeBackOperators();
+                        add("\u2295");
+                        break;
+                    }
+                } else {
+                    if (!tempResult.equals("")) {
+                        equ = tempResult;
+                        tempResult = "";
+                        add("\u2295");
+                        break;
+                    }
                 }
                 break;
 
@@ -411,7 +652,11 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
                 c == '%' ||
                 c == '÷' ||
                 c == '\u00d7' ||
-                c == '-')
+                c == '-' ||
+                c == '&' ||
+                c == '|' ||
+                c == '!' ||
+                c == '\u2295')
             return true;
         return false;
     }
@@ -484,12 +729,16 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
 
         if (Evaluate.balancedParenthesis(equ)) {
             result.setTextColor(getTextColor());
-            String equ1 = getDecimalEquation(equ);
-            String res = Evaluate.calculateResult(equ1, false, DevCalculator.this);
-            if (devState == 0)
+
+            if (devState == 0) {
+                String equ1 = getDecimalEquation(equ);
+                String res = Evaluate.calculateResult(equ1, false, DevCalculator.this);
                 result.setText(Integer.toBinaryString(Integer.parseInt(res)));
-            else
+            }
+            else {
+                String res = Evaluate.calculateResult(equ, false, DevCalculator.this);
                 result.setText(res);
+            }
         } else {
 
             //trying to balance equation coz it's a smart calculator
@@ -498,12 +747,15 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
             //if smart calculations is on and was able to balance the equation
             if (Evaluate.balancedParenthesis(tempEqu) && enableSmartCalculation) {
                 result.setTextColor(getTextColor());
-                String equ1 = getDecimalEquation(equ);
-                String res = Evaluate.calculateResult(equ1, false, DevCalculator.this);
-                if (devState == 0)
+                if (devState == 0) {
+                    String equ1 = getDecimalEquation(equ);
+                    String res = Evaluate.calculateResult(equ1, false, DevCalculator.this);
                     result.setText(Integer.toBinaryString(Integer.parseInt(res)));
-                else
+                }
+                else {
+                    String res = Evaluate.calculateResult(equ, false, DevCalculator.this);
                     result.setText(res);
+                }
             } else {
                 result.setText("");
                 Evaluate.errMsg = "Invalid Expression";
@@ -660,4 +912,29 @@ public class DevCalculator extends AppCompatActivity implements View.OnClickList
     private static boolean isNumber(String string) {
         return Pattern.matches("-?\\d+(\\.\\d+)?", string);
     }
+
+    private void setKeypadForBinary() {
+        //numbers 2 to 9 will be disabled
+        b2.setEnabled(false);
+        b3.setEnabled(false);
+        b4.setEnabled(false);
+        b5.setEnabled(false);
+        b6.setEnabled(false);
+        b7.setEnabled(false);
+        b8.setEnabled(false);
+        b9.setEnabled(false);
+    }
+
+    private void setKeypadForDecimal() {
+        //numbers 2 to 9 will be enabled
+        b2.setEnabled(true);
+        b3.setEnabled(true);
+        b4.setEnabled(true);
+        b5.setEnabled(true);
+        b6.setEnabled(true);
+        b7.setEnabled(true);
+        b8.setEnabled(true);
+        b9.setEnabled(true);
+    }
+
 }
